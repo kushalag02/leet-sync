@@ -1,19 +1,23 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        // Bit Manipulation
+        // Moore Voting Algo.
         int n = nums.size();
-        int majorE = 0;
+        int count = 0;
+        int majorE = -1;
+        for (int i = 0; i < nums.size(); i++) {
+            if (count == 0)
+                majorE = nums[i];
+            if (nums[i] != majorE)
+                count--;
 
-        for (int i = 0; i < 32; i++) {
-            int bit = 1 << i;
-            int bitCount = 0;
-            for (int num : nums) {
-                if ((num & bit) != 0)
-                    bitCount++;
-            }
-            if (bitCount > n / 2)
-                majorE |= bit;
+            if (nums[i] == majorE)
+                count++;
+        }
+        int testCount = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] == majorE)
+                testCount++;
         }
         return majorE;
     }
