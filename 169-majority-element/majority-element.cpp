@@ -10,14 +10,8 @@ public:
                 majorE = nums[i];
             if (nums[i] != majorE)
                 count--;
-
             if (nums[i] == majorE)
                 count++;
-        }
-        int testCount = 0;
-        for (int i = 0; i < nums.size(); i++) {
-            if (nums[i] == majorE)
-                testCount++;
         }
         return majorE;
     }
