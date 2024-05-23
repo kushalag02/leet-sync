@@ -7,6 +7,8 @@ bool comparator(vector<int>& a, vector<int>& b) {
 }
 class Solution {
 public:
+    // Youtube Solution
+    // DP approach
     int maxEnvelopes(vector<vector<int>>& A) {
         sort(A.begin(), A.end(), comparator);
         vector<int> dp;
