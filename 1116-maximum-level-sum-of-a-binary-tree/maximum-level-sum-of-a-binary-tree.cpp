@@ -3,39 +3,39 @@ public:
     int maxLevelSum(TreeNode* root) {
         if (root == NULL)
             return 0;
-        vector<int> sums;
-        levelOrder(root, sums);
-        int maxSum = INT_MIN;
-        int maxLevel = 0;
-        for (int i = 0; i < sums.size(); ++i) {
-            if (sums[i] > maxSum) {
-                maxSum = sums[i];
-                maxLevel = i + 1;
+        vector<int> result;
+        levelOrder(root, result);
+        int maxi = INT_MIN;
+        int level = 0;
+        for (int i = 0; i < result.size(); i++) {
+            if (result[i] > maxi) {
+                maxi = result[i];
+                level = i + 1;
             }
         }
-        return maxLevel;
+        return level;
     }
-
-    void levelOrder(TreeNode* root, vector<int>& sums) {
-        if (root == NULL)
+    void levelOrder(TreeNode* root, vector<int>& result) {
+        if (root == NULL) {
             return;
+        }
         queue<TreeNode*> que;
         que.push(root);
-        int level = 0;
-        while (!que.empty()) {
-            ++level;
+        while (que.empty() == false) {
             int size = que.size();
-            int levelSum = 0;
-            for (int i = 0; i < size; ++i) {
+            int sum = 0;
+            for (int i = 0; i < size; i++) {
                 TreeNode* node = que.front();
                 que.pop();
-                levelSum += node->val;
-                if (node->left != NULL)
+                sum += node->val;
+                if (node->left != NULL) {
                     que.push(node->left);
-                if (node->right != NULL)
+                }
+                if (node->right != NULL) {
                     que.push(node->right);
+                }
             }
-            sums.push_back(levelSum);
+            result.push_back(sum);
         }
     }
 };
