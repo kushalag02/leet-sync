@@ -14,14 +14,14 @@ public:
         for (int i = 0; i < m; i++) {
             ans[i + n] = B[i];
         }
-        sort(begin(ans), end(ans));
+        sort(begin(ans), end(ans)); // Better to use merge sort for this sorting
         return ans;
     }
     void makeVector(TreeNode* root, vector<int>& A) {
         if (root == nullptr)
             return;
-        makeVector(root->left, A);
         A.push_back(root->val);
+        makeVector(root->left, A);
         makeVector(root->right, A);
     }
 };
