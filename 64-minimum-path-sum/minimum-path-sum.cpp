@@ -2,11 +2,12 @@ class Solution {
 public:
     int solve(vector<vector<int>>& grid, vector<vector<int>>& dp, int row,
               int column, int i, int j) {
-        if (i == row - 1 && j == column - 1) {
+        if (i == row - 1 && j == column - 1)
             return grid[i][j];
-        }
+
         if (dp[i][j] != -1)
             return dp[i][j];
+
         if (i == row - 1)
             return dp[i][j] =
                        grid[i][j] + solve(grid, dp, row, column, i, j + 1);
