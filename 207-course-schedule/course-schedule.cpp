@@ -16,49 +16,31 @@ public:
         }
     }
 
-    void dfs(int node, vector<vector<int>>& adj, vector<int>& vis,
-             vector<int>& recStack, bool& hasCycle, stack<int>& st) {
-        if (hasCycle)
-            return;
-
-        vis[node] = 1;
-        recStack[node] = 1;
-
-        for (auto itr : adj[node]) {
-            if (!vis[itr]) {
-                dfs(itr, adj, vis, recStack, hasCycle, st);
-            } else if (recStack[itr]) {
-                hasCycle = true;
-                return;
+    vector<int> topoSort(int V, vector<vector<int>>& adj) {
+        vector<int> indeg(V, 0);
+        queue<int> q;
+        vector<int> ans;
+        for (int i = 0; i < V; i++) {
+            for (auto itr : adj[i]) {
+                indeg[itr]++;
             }
         }
-
-        recStack[node] = 0;
-        st.push(node);
-    }
-
-    vector<int> topoSort(int V, vector<vector<int>>& adj) {
-        stack<int> st;
-        vector<int> vis(V, 0);
-        vector<int> recStack(V, 0);
-        vector<int> ans;
-        bool hasCycle = false;
-
         for (int i = 0; i < V; i++) {
-            if (!vis[i]) {
-                dfs(i, adj, vis, recStack, hasCycle, st);
-                if (hasCycle) {
-                    return {};
+            if (indeg[i] == 0)
+                q.push(i);
+        }
+
+        while (!q.empty()) {
+            int node = q.front();
+            q.pop();
+            ans.push_back(node);
+            for (auto itr : adj[node]) {
+                indeg[itr]--;
+                if (indeg[itr] == 0) {
+                    q.push(itr);
                 }
             }
         }
-
-        while (!st.empty()) {
-            int val = st.top();
-            st.pop();
-            ans.push_back(val);
-        }
-
         return ans;
     }
 };
