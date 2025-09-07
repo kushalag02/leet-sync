@@ -1,5 +1,12 @@
 class Solution {
 public:
+    bool isOnRightSide(vector<int>& nums, int idx) {
+        if (idx % 2 == 0) {
+            return nums[idx] != nums[idx + 1];
+        } else {
+            return nums[idx] != nums[idx - 1];
+        }
+    }
     int singleNonDuplicate(vector<int>& nums) {
         // int ans = 0;
         // for (int i : nums) {
@@ -7,31 +14,23 @@ public:
         // }
         // return ans;
 
-        int left = 0;
-        int right = nums.size() - 1;
+        int left = -1;
+        int right = nums.size();
         int n = nums.size();
 
-        if (n == 1)
+        if (n == 1) {
             return nums[0];
+        }
 
-        while (left <= right) {
+        while (left + 1 < right) {
             int mid = left + (right - left) / 2;
-            if (nums[mid] == nums[mid + 1] && mid < n - 1) {
-                if ((right - mid) % 2 == 0) {
-                    left = mid + 2;
-                } else {
-                    right = mid - 1;
-                }
-            } else if (mid > 0 && nums[mid] == nums[mid - 1]) {
-                if ((mid - left) % 2 == 0) {
-                    right = mid - 2;
-                } else {
-                    left = mid + 1;
-                }
+            if (isOnRightSide(nums, mid)) {
+                right = mid;
             } else {
-                return nums[mid];
+                left = mid;
             }
         }
-        return -1;
+
+        return nums[right];
     }
 };
