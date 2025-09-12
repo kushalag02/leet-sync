@@ -4,11 +4,13 @@ public:
         vector<vector<pair<int, int>>> adj(n);
         vector<int> vis(n, 0);
         int changes = 0;
+        
+        // focus on esges that can be reversed
 
         for (auto& c : A) {
             int u = c[0];
             int v = c[1];
-            adj[u].push_back({v, 1});
+            adj[u].push_back({v, 1}); 
             adj[v].push_back({u, 0});
         }
         queue<int> q;
