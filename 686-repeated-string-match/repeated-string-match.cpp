@@ -1,6 +1,8 @@
 class Solution {
 public:
     int repeatedStringMatch(string a, string b) {
+        // KMP Problem, current = m*n
+        // With KMP - n+m
         int minRepeat = b.size() / a.size();
         string s = "";
         minRepeat+=2;
